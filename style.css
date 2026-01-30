@@ -38,6 +38,7 @@ body {
     flex: 1;
     min-height: 80dvh;
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 .message {
@@ -106,7 +107,7 @@ body {
     }
 
     .chat-content {
-        min-height: auto;
+        min-height: 500px;
         max-height: 500px;
     }
 }

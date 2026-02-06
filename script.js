@@ -2,10 +2,21 @@ const input = document.querySelector("input");
 const submitButton = document.querySelector("button");
 const chatContainer = document.querySelector(".chat-content");
 
-const sendMessage = () => {
-    const message = input.value.trim();
+const messages = JSON.parse(localStorage.getItem("messages")) || [];
 
-    renderMessage("You", message, "message sender");
+const sendMessage = () => {
+    const text = input.value.trim();
+
+    messages.push({
+        name: "You",
+        text,
+        isSender: true,
+        time: currentTime(),
+    });
+
+    localStorage.setItem("messages", JSON.stringify(messages));
+
+    renderMessage();
 
     input.value = "";
 
@@ -13,27 +24,44 @@ const sendMessage = () => {
 };
 
 const autoReply = () => {
-    const message = randomItem(randomMessages);
+    const text = randomItem(randomMessages);
     const name = randomItem(randomNames);
 
-    renderMessage(name, message, "message receiver");
+    messages.push({
+        name,
+        text,
+        isSender: false,
+        time: currentTime(),
+    });
+
+    localStorage.setItem("messages", JSON.stringify(messages));
+
+    renderMessage();
 };
 
-const renderMessage = (name, message, className) => {
-    const messageContainer = document.createElement("div");
+const renderMessage = () => {
+    chatContainer.innerHTML = "";
+    messages.forEach((message) => {
+        const messageContainer = document.createElement("div");
 
-    messageContainer.className = className;
+        messageContainer.classList.add(
+            "message",
+            message.isSender ? "sender" : "receiver",
+        );
 
-    messageContainer.innerHTML = `
-    <p class="name">${name}:</p>
-    <p class="text">${message}</p>
-    <p class="time">${currentTime()}</p>
+        messageContainer.innerHTML = `
+    <p class="name">${message.name}:</p>
+    <p class="text">${message.text}</p>
+    <p class="time">${message.time}</p>
     `;
 
-    chatContainer.appendChild(messageContainer);
+        chatContainer.appendChild(messageContainer);
+    });
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 };
+
+renderMessage();
 
 submitButton.addEventListener("click", sendMessage);
 

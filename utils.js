@@ -1,4 +1,4 @@
-const currentTime = () => {
+export const currentTime = () => {
     return new Date().toLocaleTimeString([], {
         hour: "numeric",
         minute: "2-digit",
@@ -6,12 +6,12 @@ const currentTime = () => {
     });
 };
 
-const randomItem = (items) => {
+export const randomItem = (items) => {
     return items[Math.floor(Math.random() * items.length)];
 };
 
-const randomNames = ["Tunde", "Aisha", "Chinedu", "Sola", "Yemi"];
-const randomMessages = [
+export const randomNames = ["Tunde", "Aisha", "Chinedu", "Sola", "Yemi"];
+export const randomMessages = [
     "Thanks for reaching out! I'll get back to you shortly.",
     "Hi! I've received your message and will respond soon.",
     "Hello 👋 Thanks for your message. I'll reply as soon as I can.",

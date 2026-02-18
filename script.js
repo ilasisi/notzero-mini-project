@@ -1,11 +1,21 @@
+import renderMessage, { messages } from "./message.js";
+import {
+    currentTime,
+    randomItem,
+    randomMessages,
+    randomNames,
+} from "./utils.js";
+
 const input = document.querySelector("input");
 const submitButton = document.querySelector("button");
-const chatContainer = document.querySelector(".chat-content");
-
-const messages = JSON.parse(localStorage.getItem("messages")) || [];
 
 const sendMessage = () => {
     const text = input.value.trim();
+
+    if (text === "") {
+        alert("Please your message");
+        return;
+    }
 
     messages.push({
         name: "You",
@@ -37,28 +47,6 @@ const autoReply = () => {
     localStorage.setItem("messages", JSON.stringify(messages));
 
     renderMessage();
-};
-
-const renderMessage = () => {
-    chatContainer.innerHTML = "";
-    messages.forEach((message) => {
-        const messageContainer = document.createElement("div");
-
-        messageContainer.classList.add(
-            "message",
-            message.isSender ? "sender" : "receiver",
-        );
-
-        messageContainer.innerHTML = `
-    <p class="name">${message.name}:</p>
-    <p class="text">${message.text}</p>
-    <p class="time">${message.time}</p>
-    `;
-
-        chatContainer.appendChild(messageContainer);
-    });
-
-    chatContainer.scrollTop = chatContainer.scrollHeight;
 };
 
 renderMessage();

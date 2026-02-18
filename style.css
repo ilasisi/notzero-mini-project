@@ -23,7 +23,7 @@ body {
 }
 
 .chat-header {
-    background-color: #2d58c5;
+    background-color: #804007;
     color: white;
     text-align: center;
     padding: 10px;
@@ -71,7 +71,7 @@ body {
 }
 
 .message.sender {
-    background-color: #295ee3;
+    background-color: #804007;
     color: white;
     align-self: flex-end;
 }
@@ -95,7 +95,7 @@ body {
     border-radius: 20px;
     padding: 10px 15px;
     border: none;
-    background-color: #295ee3;
+    background-color: #804007;
     color: white;
 }
 
